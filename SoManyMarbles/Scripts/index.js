@@ -17,6 +17,7 @@ let addToList = (data) => {
         .append($("<li>").html(data.MarbleColour));
 }
 
+
 let talkToServer = () => {
 
     let newMarble = {
@@ -54,3 +55,26 @@ let loadMarbles = () => {
 }
 
 loadMarbles();
+
+let singleMarble = () => {
+    // pull single marble from the API
+    // add to the list
+    $.ajax({
+        url: "/api/random",
+        dataType: "json",
+        success: function (marble) {
+            //called when successful
+            //alert(marble);
+            singleMarbleList(marble)
+        },
+        error: function (e) {
+            //called when there is an error
+            console.log(e.message);
+        }
+    })
+}
+
+let singleMarbleList = (marble) => {
+    $("#marbleList")
+        .html($("<li>").html(marble.MarbleColour));
+}
